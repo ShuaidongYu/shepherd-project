@@ -14,9 +14,9 @@ stocks = [{
 consumed_milk = 0.0
 consumed_skins = 0
 
-xml_file = Path.home()/'hobby_projects'/'shepherd_project'/'dat'/'herd.xml'
-stock_file = Path.home()/'hobby_projects'/'shepherd_project'/'dat'/'stock_info.json'
-herd_file = Path.home()/'hobby_projects'/'shepherd_project'/'dat'/'herd_info.json'
+xml_file = Path.home()/'hobby_projects'/'shepherd-project'/'dat'/'herd.xml'
+stock_file = Path.home()/'hobby_projects'/'shepherd-project'/'dat'/'stock_info.json'
+herd_file = Path.home()/'hobby_projects'/'shepherd-project'/'dat'/'herd_info.json'
 
 # Get home page for our labyak shop
 @app.get('/')
