@@ -105,7 +105,7 @@ class LabYak:
             days (int): elapsed days
 
         Returns:
-            a tuple of (milk, wool, age) after the elapsed days
+            a tuple of (milk, wool, age_last_shaved, age) after the elapsed days
         """
         self.milk_production                       = self._milk_production(self.age, days)
         self.wool_production, self.age_last_shaved = self._wool_production(self.age, days)

@@ -1,9 +1,9 @@
 import xml.etree.ElementTree as ET
 from collections import OrderedDict
 import json
-from .LabYak import LabYak
+from .class_labyak import LabYak
 
-def core(days, xml_file, stock_file, herd_file) -> None:
+def production_calculation(days, xml_file, stock_file, herd_file) -> None:
     """
     The core logic of computing the stock and herd info.
     It reads the yak info from xml_file and updates the result in stock_file and herd_file.
