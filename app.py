@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 consumed_milk = 0.0
 consumed_skins = 0
+previous_day = 0
 
 xml_file = Path.home()/'hobby_projects'/'shepherd-project'/'dat'/'herd.xml'
 stock_file = Path.home()/'hobby_projects'/'shepherd-project'/'dat'/'stock_info.json'
@@ -49,6 +50,12 @@ def get_herd_info(day):
 def create_order(day):
     global consumed_milk
     global consumed_skins
+    global previous_day
+
+    # Make sure the order requests come in ascending order of time
+    if day < previous_day:
+        return jsonify ({'error message': 'Order requests must come in ascending order of time!'})
+    previous_day = day
 
     # Get the order information from the user
     request_data = request.get_json()
