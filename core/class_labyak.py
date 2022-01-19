@@ -76,12 +76,13 @@ class LabYak:
                 if day == 0 and age_in_days >= 1*100: # at day 0 when the yak is at least 1 year old
                     wool += 1
                     age_last_shaved = age_in_days # update the age after shaving
-                    day = 0 # date resets to 0 after shaving
                 elif day > (8+ age_in_days*0.01) and age_in_days >= 1*100: # at day 8+D*0.01 when the yak is at least 1 year old
                     wool += 1
                     age_last_shaved = age_in_days # update the age after shaving
                     day = 0 # date resets to 0 after shaving
                 elif age_in_days < 1*100:
+                    age_last_shaved = None
+                    day = 0 # date resets to 0
                     logging.warning("The age of {0} is {1}, which is too young for shaving!".format(self.name, age_in_days/100))
                 day += 1
                 age_in_days += 1
@@ -89,7 +90,7 @@ class LabYak:
                 break
         # assign the values to the labyak object
         self.wool_production = wool
-        self.age_last_shaved = age_last_shaved/100
+        self.age_last_shaved = age_last_shaved/100 if age_last_shaved else None
 
     def _final_age(self, days) -> None:
         """
