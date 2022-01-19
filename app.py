@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, render_template
-from pathlib import Path
+import os
 import json
 from core import production_calculation
 from core import delivery_calculation
@@ -10,9 +10,12 @@ consumed_milk = 0.0
 consumed_skins = 0
 previous_day = 0
 
-xml_file = Path.cwd()/'dat'/'herd.xml'
-stock_file = Path.cwd()/'dat'/'stock_info.json'
-herd_file = Path.cwd()/'dat'/'herd_info.json'
+
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+xml_file = os.path.join(ROOT_DIR, 'dat/herd.xml')
+stock_file = os.path.join(ROOT_DIR, 'dat/stock_info.json')
+herd_file = os.path.join(ROOT_DIR, 'dat/herd_info.json')
 
 # get home page for our labyak shop
 @app.get('/')

@@ -49,16 +49,15 @@ def _create_order(conn, order):
     conn.commit()
     conn.close()
 
-def _create_sql_orders(name, milk, skins):
+def _create_sql_orders(path, name, milk, skins):
     """ insert an order into the SQLite database
     :param name: name of the customer
     :param milk: milk amount in the order
     :param skins: skins amount in the order
     :return:
     """
-    file_path = Path.cwd()/'dat'/'orders.db'
     order = (name, milk, skins)
-    conn = _create_connection(str(file_path))
+    conn = _create_connection(str(path))
     _create_table(conn)
     _create_order(conn, order)
 
@@ -141,7 +140,8 @@ def delivery_calculation(stock_file, total_milk, total_skins, \
         name = incomplete_order.get("customer")
         milk = incomplete_order.get("milk")
         skins = incomplete_order.get("skins")
-        _create_sql_orders(name, milk, skins)
+        path = Path(stock_file).parent.absolute()/'orders.db'
+        _create_sql_orders(path, name, milk, skins)
 
     return response, consumed_milk, consumed_skins
 
