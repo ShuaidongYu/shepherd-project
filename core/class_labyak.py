@@ -28,6 +28,7 @@ class LabYak:
         self._age = age # update in _final_age method
         self.milk_production = 0.0
         self.wool_production = 0
+        self.age_last_shaved = None
         LabYak.num_of_yaks += 1
 
     @property
