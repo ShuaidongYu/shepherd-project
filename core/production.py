@@ -51,8 +51,8 @@ def production_calculation(days, xml_file, stock_file, herd_file) -> None:
         yak_info['age-last-shaved'] = age_lastshaving[idx]
         herd_info.append(yak_info)
 
-    with open(stock_file, 'w', encoding='UTF-8') as f:
+    with open(stock_file, 'w') as f:
         json.dump((product_info), f)
 
-    with open(herd_file, 'w', encoding='UTF-8') as f:
+    with open(herd_file, 'w') as f:
         json.dump(({'herd': herd_info}), f)

@@ -1,4 +1,5 @@
 from collections import OrderedDict
+import logging
 from pathlib import Path
 import json
 import sqlite3
@@ -16,7 +17,7 @@ def _create_connection(db_file):
         conn = sqlite3.connect(db_file)
         return conn
     except Error:
-        print(Error)
+        logging.error(Error)
     return conn
 
 def _create_table(conn):
@@ -32,7 +33,7 @@ def _create_table(conn):
                 skins INTEGER
             )""")
     except Error:
-        print(Error)
+        logging.error(Error)
 
 def _create_order(conn, order):
     """

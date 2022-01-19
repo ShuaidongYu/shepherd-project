@@ -1,7 +1,8 @@
+import logging
+
 """
 LabYak class
 """
-
 class LabYak:
     """
     The LabYak objects which contains the info of many yaks
@@ -24,7 +25,7 @@ class LabYak:
         # Make sure the initial age is valid
         assert age < 10.0, "Invalid age! A LabYak dies the day it turns 10!"
         self.name = name
-        self._age = age
+        self._age = age # update in _final_age method
         self.milk_production = 0.0
         self.wool_production = 0
         LabYak.num_of_yaks += 1
@@ -43,59 +44,63 @@ class LabYak:
     def __str__(self) -> str:
         return "A LabYak whose name is {} and age is {}".format(self.name, self.age)
 
-    @staticmethod
-    def _milk_production(age, days) -> float:
+    def _milk_production(self, days) -> None:
         """The computation of milk production for a labyak.
         Each day a LabYak produces 50-D*0.03 liters of milk (D = age in days).
         """
         # Make sure the initial age is valid
-        assert age < 10.0, "A LabYak dies the day it turns 10!"
+        assert self.age < 10.0, "A LabYak dies the day it turns 10!"
         milk = 0.0
-        age_in_days = age * 100
+        age_in_days = self.age * 100
         for _ in range(days):
             if age_in_days < 10*100: # When the LabYak is alive
                 milk += 50-age_in_days*0.03
                 age_in_days += 1
-            else:
-                print("its age turns {} and a LabYak dies at 10!".format(age_in_days/100))
+            else: # the labyak dies
                 break
-        return milk
+        # assign the value to the labyak object
+        self.milk_production = milk
 
-    @staticmethod
-    def _wool_production(age, days) -> int:
-        """The computation of wool production for a labyak.
+    def _wool_production(self, days) -> None:
+        """The computation of wool production and last-saved age for a labyak.
         At most every 8+D*0.01 days you can again shave a LabYak (D = age in days).
         """
         # Make sure the initial age is valid
-        assert age < 10.0, "A LabYak dies the day it turns 10!"
+        assert self.age < 10.0, "A LabYak dies the day it turns 10!"
         day = 0
         wool = 0
-        age_in_days = age * 100
+        age_in_days = self.age * 100
         for _ in range(days):
             if age_in_days < 10*100: # When the LabYak is alive
                 if day == 0 and age_in_days >= 1*100: # at day 0 when the yak is at least 1 year old
                     wool += 1
                     age_last_shaved = age_in_days # update the age after shaving
+                    day = 0 # date resets to 0 after shaving
                 elif day > (8+ age_in_days*0.01) and age_in_days >= 1*100: # at day 8+D*0.01 when the yak is at least 1 year old
                     wool += 1
                     age_last_shaved = age_in_days # update the age after shaving
                     day = 0 # date resets to 0 after shaving
+                elif age_in_days < 1*100:
+                    logging.warning("The age of {0} is {1}, which is too young for shaving!".format(self.name, age_in_days/100))
                 day += 1
                 age_in_days += 1
-            else:
-                print("its age turns {} and a LabYak dies at 10!".format(age_in_days/100))
+            else: # the labyak dies
                 break
-        return wool, age_last_shaved/100
+        # assign the values to the labyak object
+        self.wool_production = wool
+        self.age_last_shaved = age_last_shaved/100
 
-    @staticmethod
-    def _final_age(age, days) -> float:
+    def _final_age(self, days) -> None:
         """
-        Compute the final age in years of a yak after the given days.
+        Set the age in years of a yak after the given days.
         """
-        final_age = (age*100+days)/100
-        if final_age < 10:
-            return final_age
-        return 10
+        final_age = (self._age*100+days)/100
+        if final_age < 10.0:
+            # set the age of the labyak
+            self._age = final_age
+        else:
+            logging.warning("The age of {0} turns 10.0 and a LabYak dies at 10!".format(self.name))
+            self._age = 10.0
 
     def yak_production(self, days) -> tuple:
         """
@@ -107,7 +112,7 @@ class LabYak:
         Returns:
             a tuple of (milk, wool, age_last_shaved, age) after the elapsed days
         """
-        self.milk_production                       = self._milk_production(self.age, days)
-        self.wool_production, self.age_last_shaved = self._wool_production(self.age, days)
-        self._age                                  = self._final_age(self._age, days)
+        self._milk_production(days)
+        self._wool_production(days)
+        self._final_age(days)
         return self.milk_production, self.wool_production, self.age_last_shaved, self.age
