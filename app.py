@@ -10,9 +10,9 @@ consumed_milk = 0.0
 consumed_skins = 0
 previous_day = 0
 
-xml_file = Path.home()/'hobby_projects'/'shepherd-project'/'dat'/'herd.xml'
-stock_file = Path.home()/'hobby_projects'/'shepherd-project'/'dat'/'stock_info.json'
-herd_file = Path.home()/'hobby_projects'/'shepherd-project'/'dat'/'herd_info.json'
+xml_file = Path.cwd()/'dat'/'herd.xml'
+stock_file = Path.cwd()/'dat'/'stock_info.json'
+herd_file = Path.cwd()/'dat'/'herd_info.json'
 
 # get home page for our labyak shop
 @app.get('/')

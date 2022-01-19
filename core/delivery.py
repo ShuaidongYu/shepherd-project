@@ -55,7 +55,7 @@ def _create_sql_orders(name, milk, skins):
     :param skins: skins amount in the order
     :return:
     """
-    file_path = Path.home()/'hobby_projects'/'shepherd-project'/'dat'/'orders.db'
+    file_path = Path.cwd()/'dat'/'orders.db'
     order = (name, milk, skins)
     conn = _create_connection(str(file_path))
     _create_table(conn)
