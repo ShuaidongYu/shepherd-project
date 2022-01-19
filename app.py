@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, render_template
 import os
+from pathlib import Path
 import json
 from core import production_calculation
 from core import delivery_calculation
@@ -13,9 +14,9 @@ previous_day = 0
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-xml_file = os.path.join(ROOT_DIR, 'dat/herd.xml')
-stock_file = os.path.join(ROOT_DIR, 'dat/stock_info.json')
-herd_file = os.path.join(ROOT_DIR, 'dat/herd_info.json')
+xml_file = os.path.join(ROOT_DIR, 'dat', 'herd.xml')
+stock_file = os.path.join(ROOT_DIR, 'dat', 'stock_info.json')
+herd_file = os.path.join(ROOT_DIR, 'dat', 'herd_info.json')
 
 # get home page for our labyak shop
 @app.get('/')
