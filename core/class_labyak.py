@@ -12,10 +12,11 @@ class LabYak:
         age (float): the age of the yak.
 
     Attributes:
-        name (str):                    the name of the yak, instance attribute
-        age (float):                   the age of the yak, instance attribute
-        milk_production (float):       the milk production of the yak, instance attribute
-        wool_production (int):         the wool production of the yak, instance attribute
+        name (str):                    the name of a yak, instance attribute
+        age (float):                   the age of a yak, instance attribute
+        milk_production (float):       the milk production of a yak, instance attribute
+        wool_production (int):         the wool production of a yak, instance attribute
+        age_last_shaved (float):       the last-shaved age of a yak
         num_of_yaks (int):             the number of yaks created from this class, class attribute
     """
 
@@ -23,7 +24,7 @@ class LabYak:
 
     def __init__(self, name, age):
         # Make sure the initial age is valid
-        assert age < 10.0, "Invalid age! A LabYak dies the day it turns 10!"
+        assert age < 10.0 and age > 0, "Invalid age! The initial age must be between 0 and 10!"
         self.name = name
         self._age = age # update in _final_age method
         self.milk_production = 0.0
@@ -82,8 +83,8 @@ class LabYak:
                     day = 0 # date resets to 0 after shaving
                 elif age_in_days < 1*100:
                     age_last_shaved = None
-                    day = 0 # date resets to 0
-                    logging.warning("The age of {0} is {1}, which is too young for shaving!".format(self.name, age_in_days/100))
+                    age_in_days += 1
+                    continue
                 day += 1
                 age_in_days += 1
             else: # the labyak dies
@@ -114,6 +115,8 @@ class LabYak:
         Returns:
             a tuple of (milk, wool, age_last_shaved, age) after the elapsed days
         """
+        if days < 1 or not isinstance(days, int):
+            raise ValueError("Days should start with 1 and could not be a float number.")
         self._milk_production(days)
         self._wool_production(days)
         self._final_age(days)

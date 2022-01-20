@@ -27,7 +27,7 @@ def delivery_calculation(total_milk, total_skins, \
     delivery = OrderedDict()
     incomplete_order = {}
     consumed_milk_new = 0.0
-    consumed_milk_new = 0
+    consumed_skins_new = 0
 
     if total_milk >= milk_order and total_skins >= skins_order: # both milk and skins enough
         # delivered milk and skins
