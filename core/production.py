@@ -3,7 +3,7 @@ from collections import OrderedDict
 import json
 from .class_labyak import LabYak
 
-def production_calculation(days, xml_file, stock_file, herd_file) -> None:
+def production_calculation(days, xml_file) -> tuple:
     """
     The core logic of computing the stock and herd info.
     It reads the yak info from xml_file and updates the result in stock_file and herd_file.
@@ -11,8 +11,10 @@ def production_calculation(days, xml_file, stock_file, herd_file) -> None:
     Args:
         days (str): the elapsed days.
         xml_file (str): the herd xml file path.
-        stock_file (str): the stock json file path.
-        herd_file (str): the herd json file path.
+
+    Returns:
+        product_info (dict): the production of milk and skins.
+        herd_info (dict): the name, last-shaved age, and the current age of the herd.
     """
     yak_names = []
     yak_ages = []
@@ -51,8 +53,12 @@ def production_calculation(days, xml_file, stock_file, herd_file) -> None:
         yak_info['age-last-shaved'] = age_lastshaving[idx]
         herd_info.append(yak_info)
 
-    with open(stock_file, 'w') as f:
+    return product_info, herd_info
+
+def dump_json_stock(stock_path, product_info):
+    with open(stock_path, 'w') as f:
         json.dump((product_info), f)
 
-    with open(herd_file, 'w') as f:
+def dump_json_herd(herd_path, herd_info):
+    with open(herd_path, 'w') as f:
         json.dump(({'herd': herd_info}), f)
