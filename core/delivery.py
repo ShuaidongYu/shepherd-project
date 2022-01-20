@@ -68,11 +68,15 @@ def delivery_calculation(total_milk, total_skins, \
     return response, consumed_milk_new, consumed_skins_new, incomplete_order
 
 def write_db_order(db_path, incomplete_order):
-        if incomplete_order:
-            name = incomplete_order.get("customer")
-            milk = incomplete_order.get("milk")
-            skins = incomplete_order.get("skins")
-            _create_sql_order(db_path, name, milk, skins)
+    """Write the unfulfilled orders to a db file for fellow shepherds to take.
+    :param db_path: the database file path
+    :param incomplete_order: a dictionary that contains all the order information
+    """
+    if incomplete_order:
+        name = incomplete_order.get("customer")
+        milk = incomplete_order.get("milk")
+        skins = incomplete_order.get("skins")
+        _create_sql_order(db_path, name, milk, skins)
 
 
 def _create_connection(db_file):
