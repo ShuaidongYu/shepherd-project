@@ -63,7 +63,7 @@ def create_order(day):
 
     # Make sure the order requests come in ascending order of time
     if day < previous_day:
-        return jsonify ({'error message': 'Order requests must come in ascending order of time!'})
+        return jsonify ({'error message': 'Order requests must come in ascending order of time!'}), 404
     previous_day = day
 
     # Get the order information from the user
@@ -95,7 +95,7 @@ def create_order(day):
     # Store the incomplete order to a db file
     write_db_order(db_file, incomplete_order)
 
-    return jsonify(delivery)
+    return jsonify(delivery), delivery[0].get("Status")
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
