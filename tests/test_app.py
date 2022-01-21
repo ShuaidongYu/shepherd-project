@@ -36,6 +36,7 @@ class TestApp(unittest.TestCase):
             self.app.get('/yak-shop/herd/0')
         the_exception = str(e.exception)
         self.assertEqual(the_exception, "Days should start with 1 and could not be a float number.")
+
         # a randomly large day
         response = self.app.get('/yak-shop/herd/10000')
         status_code = response.status_code
@@ -62,6 +63,7 @@ class TestApp(unittest.TestCase):
         self.assertEqual(content["herd"][0].get("age-last-shaved"), 4.0)
         self.assertEqual(content["herd"][1].get("age-last-shaved"), 8.0)
         self.assertEqual(content["herd"][2].get("age-last-shaved"), 9.5)
+
         # day 14 test
         response = self.app.get('/yak-shop/herd/14')
         status_code = response.status_code
@@ -74,6 +76,7 @@ class TestApp(unittest.TestCase):
         self.assertEqual(content["herd"][0].get("age-last-shaved"), 4.13)
         self.assertEqual(content["herd"][1].get("age-last-shaved"), 8.0)
         self.assertEqual(content["herd"][2].get("age-last-shaved"), 9.5)
+
         # day 18 test
         response = self.app.get('/yak-shop/herd/18')
         status_code = response.status_code
@@ -86,6 +89,7 @@ class TestApp(unittest.TestCase):
         self.assertEqual(content["herd"][0].get("age-last-shaved"), 4.13)
         self.assertEqual(content["herd"][1].get("age-last-shaved"), 8.17)
         self.assertEqual(content["herd"][2].get("age-last-shaved"), 9.5)
+
         # day 19 test
         response = self.app.get('/yak-shop/herd/19')
         status_code = response.status_code
@@ -105,6 +109,7 @@ class TestApp(unittest.TestCase):
             self.app.get('/yak-shop/herd/0')
         the_exception = str(e.exception)
         self.assertEqual(the_exception, "Days should start with 1 and could not be a float number.")
+
         # a randomly large day
         response = self.app.get('/yak-shop/stock/10000')
         status_code = response.status_code
@@ -123,6 +128,7 @@ class TestApp(unittest.TestCase):
         content = response.get_json()
         self.assertAlmostEqual(content.get("milk"), 1104.48)
         self.assertEqual(content.get("skins"), 3)
+
         # day 14 test
         response = self.app.get('/yak-shop/stock/14')
         status_code = response.status_code
@@ -131,6 +137,7 @@ class TestApp(unittest.TestCase):
         content = response.get_json()
         self.assertAlmostEqual(content.get("milk"), 1188.81)
         self.assertEqual(content.get("skins"), 4)
+
         # day 18 test
         response = self.app.get('/yak-shop/stock/18')
         status_code = response.status_code
@@ -139,6 +146,7 @@ class TestApp(unittest.TestCase):
         content = response.get_json()
         self.assertAlmostEqual(content.get("milk"), 1525.23)
         self.assertEqual(content.get("skins"), 5)
+
         # day 19 test
         response = self.app.get('/yak-shop/stock/19')
         status_code = response.status_code
@@ -197,7 +205,7 @@ class TestApp(unittest.TestCase):
         self.assertEqual(content[0].get("milk"), None)
         self.assertEqual(content[0].get("skins"), None)
 
-        # test for the order next day
+        # test for the same order but next day
         response = self.app.post('/yak-shop/order/14', json={
             "customer": "Medvedev5",
             "order": {"milk": 100, "skins": 2}
@@ -212,7 +220,7 @@ class TestApp(unittest.TestCase):
         # test for descending order of time
         response = self.app.post('/yak-shop/order/13', json={
             "customer": "Medvedev6",
-            "order": {"milk": 1000, "skins": 1}
+            "order": {"milk": 100, "skins": 2}
         })
         status_code = response.status_code
         self.assertEqual(status_code, 404)
