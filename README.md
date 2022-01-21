@@ -7,7 +7,8 @@ This project is called "SHEPHERD-PROJECT" and it bascially consists of 4 folders
 It is writen mainly in Python 3.6.5 and Flask framework is used to build the API.
 
 * "core" folder is a package folder, which contains the core modules to be imported in app.py.
-* "dat" folder contains the original "herd.xml" file and other output files in .json or .db format.
+* "dat" folder contains the original "herd.xml" file and other output files in .json and .db format.
+The JSON files contain the information of the stock and herd while the DB file stores all the unfulfilled orders.
 * "templates" folder contains all html files that are used to generate some informaiton on the webpage.
 * "tests" folder contains 2 tests for the class instantiation and our flask application.
 * "app.py" is our flask application.
