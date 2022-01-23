@@ -19,5 +19,18 @@ pip install -r requirements.txt
 ```
 ## Usage
 Run app.py at the root directory.
+### Running "GET" requests
 "GET" requests could be run on a local browser.
+For example, you can get the stock and herd info at day 13 by using these 2 URLs:
+```
+http://127.0.0.1:5000/yak-shop/stock/13
+http://127.0.0.1:5000/yak-shop/herd/13
+```
+After the 2 "GET" requests, the corresponding info will also be saved in "stock_info.json" and "herd_info.json".
+### Running "POST" requests
 "POST" requests could be run, for example, by installing "Postman" API platform.
+For example, you can post the order at day 13 at this URL:
+```
+http://127.0.0.1:5000/yak-shop/order/13
+```
+After this "POST" request, the fulfilled or partially fulfilled order will be returned, while the stock amount saved in "stock_info.json" will be updated based on the consumption. The unfulfilled order will be saved into "orders.db" for other shepherds to take.
