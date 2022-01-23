@@ -5,19 +5,19 @@ LabYak class
 """
 class LabYak:
     """
-    The LabYak objects which contains the info of many yaks
+    A LabYak class that is used to create labyak (yak) objects.
 
     Args:
         name (str):  the name of the yak.
         age (float): the age of the yak.
 
     Attributes:
-        name (str):                    the name of a yak, instance attribute
-        age (float):                   the age of a yak, instance attribute
-        milk_production (float):       the milk production of a yak, instance attribute
-        wool_production (int):         the wool production of a yak, instance attribute
-        age_last_shaved (float):       the last-shaved age of a yak
-        num_of_yaks (int):             the number of yaks created from this class, class attribute
+        name (str):                    the name of a yak, instance attribute.
+        age (float):                   the age of a yak, instance attribute.
+        milk_production (float):       the milk production of a yak, instance attribute.
+        wool_production (int):         the wool production of a yak, instance attribute.
+        age_last_shaved (float):       the last-shaved age of a yak, instance attribute.
+        num_of_yaks (int):             the number of yaks created from this class, class attribute.
     """
 
     num_of_yaks = 0
@@ -55,10 +55,12 @@ class LabYak:
         milk = 0.0
         age_in_days = self.age * 100
         for _ in range(days):
-            if age_in_days < 10*100: # When the LabYak is alive
+            if age_in_days < 10*100:
+                # When the yak is alive
                 milk += 50-age_in_days*0.03
                 age_in_days += 1
-            else: # the labyak dies
+            else:
+                # the yak dies
                 break
         # assign the value to the labyak object
         self.milk_production = milk
@@ -73,21 +75,26 @@ class LabYak:
         wool = 0
         age_in_days = self.age * 100
         for _ in range(days):
-            if age_in_days < 10*100: # When the LabYak is alive
-                if day == 0 and age_in_days >= 1*100: # at day 0 when the yak is at least 1 year old
+            if age_in_days < 10*100:
+                # When the yak is alive
+                if day == 0 and age_in_days >= 1*100:
+                    # at day 0 when the yak is at least 1 year old
                     wool += 1
                     age_last_shaved = age_in_days # update the age after shaving
-                elif day > (8+ age_in_days*0.01) and age_in_days >= 1*100: # at day 8+D*0.01 when the yak is at least 1 year old
+                elif day > (8+ age_in_days*0.01) and age_in_days >= 1*100:
+                    # at day 8+D*0.01 when the yak is at least 1 year old
                     wool += 1
                     age_last_shaved = age_in_days # update the age after shaving
                     day = 0 # date resets to 0 after shaving
                 elif age_in_days < 1*100:
+                    # continue if a yak is less than 1 year old
                     age_last_shaved = None
                     age_in_days += 1
                     continue
                 day += 1
                 age_in_days += 1
-            else: # the labyak dies
+            else:
+                # the yak dies
                 break
         # assign the values to the labyak object
         self.wool_production = wool
