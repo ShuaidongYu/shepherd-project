@@ -5,11 +5,12 @@ from .class_labyak import LabYak
 
 def production_calculation(days, xml_file) -> tuple:
     """
-    The core logic of computing the stock and herd info.
-    It reads the yak info from xml_file and updates the result in stock_file and herd_file.
+    The core logic of computing the stock and herd information.
+    It reads the yak information from xml_file and computes the stock as well as 
+    herd information at a day given by the user.
 
     Args:
-        days (str): the elapsed days.
+        days (int): the elapsed days.
         xml_file (str): the herd xml file path.
 
     Returns:
@@ -55,10 +56,20 @@ def production_calculation(days, xml_file) -> tuple:
 
     return product_info, herd_info
 
-def dump_json_stock(stock_path, product_info):
+def dump_json_stock(stock_path, product_info) -> None:
+    """Store the product_info into a json file at stock_path.
+    :param stock_path: the json file path
+    :param product_info: a dictionary that contains the stock information
+    :return:
+    """
     with open(stock_path, 'w') as f:
         json.dump((product_info), f)
 
-def dump_json_herd(herd_path, herd_info):
+def dump_json_herd(herd_path, herd_info) -> None:
+    """Store the herd_info into a json file at herd_path.
+    :param herd_path: the json file path
+    :param herd_info: a list that contains the dictionaries of herd information
+    :return:
+    """
     with open(herd_path, 'w') as f:
         json.dump(({'herd': herd_info}), f)

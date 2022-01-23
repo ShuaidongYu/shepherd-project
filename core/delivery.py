@@ -7,9 +7,9 @@ from sqlite3 import Error
 def delivery_calculation(total_milk, total_skins, \
                          customer, milk_order, skins_order) -> tuple:
     """
-    The core logic of computing the order infomation.
-    It reads the incoming order and returns the successful order info.
-    It also create a db file to store the incomplete orders.
+    The core logic of computing the order information.
+    It basically reads the incoming order (customer name and order content)
+    and returns the fulfilled as well as unfulfilled (incomplete) order information.
 
     Args:
         total_milk (float): current amount of milk in stock.
@@ -19,10 +19,10 @@ def delivery_calculation(total_milk, total_skins, \
         skins_order (int): incoming skins order.
 
     Returns:
-        response (list): the succesful order information
-        consumed_milk_new (float): the amount of milk that is consumed from this order
-        consumed_skins_new (int): the amount of skins that is consumed from this order
-        incomplete_order (dict): incomplete order
+        response (list): the fulfilled order information.
+        consumed_milk_new (float): the amount of milk that is consumed from this order.
+        consumed_skins_new (int): the amount of skins that is consumed from this order.
+        incomplete_order (dict): unfulfilled (incomplete) order information.
     """
     delivery = OrderedDict()
     incomplete_order = {}
@@ -67,7 +67,7 @@ def delivery_calculation(total_milk, total_skins, \
 
     return response, consumed_milk_new, consumed_skins_new, incomplete_order
 
-def write_db_order(db_path, incomplete_order):
+def write_db_order(db_path, incomplete_order) -> None:
     """Write the unfulfilled orders to a db file for fellow shepherds to take.
     :param db_path: the database file path
     :param incomplete_order: a dictionary that contains all the order information
@@ -93,9 +93,9 @@ def _create_connection(db_file):
         logging.error(Error)
     return conn
 
-def _create_table(conn):
+def _create_table(conn) -> None:
     """ create a table if the table does not exit
-    :param conn: Connection object
+    :param conn: connection object
     :return:
     """
     try:
@@ -108,11 +108,11 @@ def _create_table(conn):
     except Error:
         logging.error(Error)
 
-def _create_order(conn, order):
+def _create_order(conn, order) -> None:
     """
     Create a new order into the orders table
-    :param conn:
-    :param order:
+    :param conn: connection object
+    :param order: the order information in a tuple
     :return:
     """
     sql = ''' INSERT INTO orders(customer, milk, skins)
@@ -122,7 +122,7 @@ def _create_order(conn, order):
     conn.commit()
     conn.close()
 
-def _create_sql_order(path, name, milk, skins):
+def _create_sql_order(path, name, milk, skins) -> None:
     """ insert an order into the SQLite database
     :param name: name of the customer
     :param milk: milk amount in the order
