@@ -8,16 +8,16 @@ from core import LabYak
 class TestLabYak(unittest.TestCase):
 
     def test_instance_creation(self):
-        # test for age > 10
+        # test for age > 10.0
         with self.assertRaises(AssertionError) as e:
             yak1 = LabYak('Betty-1', 11)
         the_exception = str(e.exception)
-        self.assertEqual(the_exception, "Invalid age! The initial age must be between 0 and 10!")
+        self.assertEqual(the_exception, "Invalid age! The initial age must be between 0 and 10.0!")
         # test for age < 0
         with self.assertRaises(AssertionError) as e:
             yak2 = LabYak('Betty-2', -1)
         the_exception = str(e.exception)
-        self.assertEqual(the_exception, "Invalid age! The initial age must be between 0 and 10!")
+        self.assertEqual(the_exception, "Invalid age! The initial age must be between 0 and 10.0!")
 
     def test_set_readonly_attribute(self):
         yak1 = LabYak('Betty-1', 4)
