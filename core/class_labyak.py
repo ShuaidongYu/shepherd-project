@@ -18,6 +18,10 @@ class LabYak:
         wool_production (int):         the wool production of a yak, instance attribute.
         age_last_shaved (float):       the last-shaved age of a yak, instance attribute.
         num_of_yaks (int):             the number of yaks created from this class, class attribute.
+
+    Methods:
+        yak_production:                the method called by a yak object with a given day T
+                                       to generate all the information.
     """
 
     num_of_yaks = 0
